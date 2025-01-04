@@ -69,7 +69,7 @@
                         url: `/categories/${id}`,
                         type: 'DELETE',
                         headers: {
-                            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr("content")  // Add CSRF token from meta tag
+                            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr("content")
                         },
                         success: function(response) {
                             toastr.success(response.success, "Success");

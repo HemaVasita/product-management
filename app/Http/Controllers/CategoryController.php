@@ -19,7 +19,7 @@ class CategoryController extends Controller
         if ($request->ajax()) {
             $categories = Category::select(['id', 'name', 'description', 'created_at']);
             return DataTables::of($categories)
-                ->addColumn('created_at', function ($row) {
+                ->editColumn('created_at', function ($row) {
                     // Format the created_at date to 'YYYY-MM-DD'
                     return Carbon::parse($row->created_at)->format('Y-m-d');
                 })
@@ -88,6 +88,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return response()->json(['success' => 'Category deleted successfully.']);
+        return response()->json(['success' => __('Category deleted successfully.')]);
     }
 }
