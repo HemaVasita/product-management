@@ -37,7 +37,9 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('categories.index') }}",
-                order: [[0, 'asc']],
+                order: [
+                    [0, 'asc']
+                ],
                 columns: [{
                         data: 'name',
                         name: 'name'
@@ -46,7 +48,14 @@
                         data: 'description',
                         name: 'description',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        render: function(data, type, row) {
+                            // Replace newlines with <br> to display them correctly in HTML
+                            if (data) {
+                                return data.replace(/\n/g, "<br>");
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'created_at',
