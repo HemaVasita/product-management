@@ -33,7 +33,7 @@ class ProductController extends Controller
                 ->editColumn('image', function ($row) {
                     return '
                         <a href="' . Storage::url($row->image) . '" target="_blank">
-                            <img src="' . Storage::url($row->image) . '" width="50" class="img-fluid custom-img">
+                            <img src="' . Storage::url($row->image) . '" width="50" class="img-fluid custom-img" alt="product">
                         </a>';
                 })
                 // Format the category column as a clickable link to the category edit page

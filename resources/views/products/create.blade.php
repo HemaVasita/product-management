@@ -41,8 +41,8 @@
                 <div class="row my-2">
                     <div class="col-12 form-group">
                         <label for="price">Price</label>
-                        <input type="number" class="form-control" id="price" name="price" step="0.01"
-                            required>
+                        <input type="number" class="form-control" id="price" name="price" step="0.01" min="0" max="99999999.99"
+                        title="Please enter a valid price between 0 and 99999999.99" required>
                     </div>
                 </div>
                 <div class="row my-2">
@@ -60,7 +60,8 @@
                         <div>
                             @foreach ($tags as $tag)
                                 <label><input type="checkbox" name="tags[]" value="{{ $tag->id }}">
-                                    {{ $tag->name }}</label>
+                                    {{ $tag->name }}
+                                </label>
                             @endforeach
                         </div>
                     </div>

@@ -47,7 +47,7 @@
                         <input type="file" class="form-control-file" id="image" name="image">
                         @if ($product->image)
                             <div class="mt-2">
-                                <img src="{{ asset('storage/' . $product->image) }}" width="100" class="img-fluid custom-img">
+                                <img src="{{ asset('storage/' . $product->image) }}" width="100" class="img-fluid custom-img" alt="product">
                             </div>
                         @endif
                     </div>
@@ -57,7 +57,8 @@
                     <div class="col-12 form-group">
                         <label for="price">Price</label>
                         <input type="number" class="form-control" id="price" name="price"
-                            value="{{ old('price', $product->price) }}" step="0.01" required>
+                            value="{{ old('price', $product->price) }}" step="0.01" min="0" max="99999999.99"
+                            title="Please enter a valid price between 0 and 99999999.99" required>
                     </div>
                 </div>
 
