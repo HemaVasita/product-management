@@ -6,30 +6,26 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="container">
-                    <!-- Heading and Button -->
-                    <div class="d-flex justify-content-between align-items-center my-4">
-                        <a href="{{ route('categories.create') }}" class="btn btn-primary">
-                            <i class="bi bi-plus-circle me-2"></i> Add Category
-                        </a>
-                    </div>
+        <div class="container bg-white overflow-hidden shadow-sm sm:rounded-lg p-3">
+            <!-- Heading and Button -->
+            <div class="d-flex justify-content-end align-items-center">
+                <a href="{{ route('categories.create') }}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>Add Category
+                </a>
+            </div>
 
-                    <!-- DataTable -->
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered" id="categories-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Date Created</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
+            <!-- DataTable -->
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="categories-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Date Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
@@ -41,10 +37,21 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('categories.index') }}",
-                columns: [
-                    { data: 'name', name: 'name' },
-                    { data: 'description', name: 'description' },
-                    { data: 'created_at', name: 'created_at' },
+                order: [[0, 'asc']],
+                columns: [{
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
                     {
                         data: 'action',
                         name: 'action',
@@ -61,13 +68,16 @@
                     $.ajax({
                         url: `/categories/${id}`,
                         type: 'DELETE',
-                        data: {
-                            _token: "{{ csrf_token() }}"
+                        headers: {
+                            'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr("content")  // Add CSRF token from meta tag
                         },
                         success: function(response) {
-                            alert(response.success);
+                            toastr.success(response.success, "Success");
                             $('#categories-table').DataTable().ajax.reload();
                         },
+                        error: function(xhr, status, error) {
+                            toastr.error("An error occurred. Please try again.", "Error");
+                        }
                     });
                 }
             });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -18,16 +19,24 @@ class CategoryController extends Controller
         if ($request->ajax()) {
             $categories = Category::select(['id', 'name', 'description', 'created_at']);
             return DataTables::of($categories)
+                ->addColumn('created_at', function ($row) {
+                    // Format the created_at date to 'YYYY-MM-DD'
+                    return Carbon::parse($row->created_at)->format('Y-m-d');
+                })
                 ->addColumn('action', function ($row) {
                     return '
-                        <a href="'.route('categories.edit', $row->id).'" class="btn btn-warning btn-sm">Edit</a>
-                        <button class="btn btn-danger btn-sm delete-btn" data-id="'.$row->id.'">Delete</button>
+                        <a href="' . route('categories.edit', $row->id) . '" class="btn btn-info btn-sm">
+                            <i class="bi bi-pencil me-2"></i>Edit
+                        </a>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="' . $row->id . '">
+                            <i class="bi bi-trash me-2"></i>Delete
+                        </button>
                     ';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-    
+
         return view('categories.index');
     }
 
@@ -44,13 +53,8 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|unique:categories,name',
-            'description' => 'required',
-        ]);
-    
-        Category::create($request->all());
-        return redirect()->route('categories.index');
+        Category::create($request->validated());
+        return redirect()->route('categories.index')->with('success', __('Category created successfully!'));
     }
 
     /**
@@ -74,13 +78,8 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $request->validate([
-            'name' => 'required|string|unique:categories,name,' . $category->id,
-            'description' => 'required',
-        ]);
-    
-        $category->update($request->all());
-        return redirect()->route('categories.index');
+        $category->update($request->validated());
+        return redirect()->route('categories.index')->with('success', __('Category updated successfully!'));
     }
 
     /**
