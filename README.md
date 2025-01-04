@@ -66,19 +66,13 @@ php artisan key:generate
 
 ### 4. Run Database Migrations
 
-Run the migrations to create the required database tables:
+Run the migrations to create the required database tables & seed the database with sample data:
 
 ```bash
-php artisan migrate
+php artisan migrate --seed
 ```
 
-If you want to seed the database with sample data, run:
-
-```bash
-php artisan db:seed
-```
-
-### 5. Set File Permissions
+### 5. Set File Permissions (Optional)
 
 Ensure the `storage` folder is writable for file uploads:
 
@@ -95,11 +89,15 @@ You can now serve the application using the built-in Laravel development server:
 composer run dev
 ```
 
-By default, it will be accessible at [http://127.0.0.1:8000](http://127.0.0.1:8000).
+By default, it will be accessible at [http://localhost:8000](http://localhost:8000).
 
 ### 7. Access the Application
 
-Once the server is running, open your browser and navigate to [http://127.0.0.1:8000](http://127.0.0.1:8000). You should be able to see the product management system in action.
+Once the server is running, open your browser and navigate to [http://localhost:8000](http://localhost:8000). To start using the application, you must log in. Go to:
+
+[http://localhost:8000/login](http://localhost:8000/login)
+
+Log in with your credentials to start managing products, categories, and tags.
 
 ## Troubleshooting
 
