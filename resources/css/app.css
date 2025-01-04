@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.menubtn a {
+    text-decoration: none !important;
+}
