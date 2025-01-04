@@ -5,6 +5,14 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <div class="flex flex-col items-center justify-center py-4 text-center">
+            <p class="text-gray-600">
+                For testing purposes, use the following credentials:<br>
+                Email: admin@mailinator.com<br>
+                Password: Admin@123
+            </p>
+        </div>
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
