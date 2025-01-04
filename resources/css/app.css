@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.menubtn a {
+    text-decoration: none !important;
+}
+
+/* Success toast background color */
+.toast-success {
+    background-color: #28a745 !important; /* Green */
+}
+
+/* Error toast background color */
+.toast-error {
+    background-color: #dc3545 !important; /* Red */
+}
+
+/* Info toast background color */
+.toast-info {
+    background-color: #17a2b8 !important; /* Blue */
+}
+
+/* Warning toast background color */
+.toast-warning {
+    background-color: #ffc107 !important; /* Yellow */
+}
+
+/* Customize text color */
+.toast-message {
+    color: #ffffff !important;
+}
+
+/* Adjust toast size */
+.toast {
+    font-size: 16px;
+    padding: 15px;
+}
+
+.custom-img {
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
